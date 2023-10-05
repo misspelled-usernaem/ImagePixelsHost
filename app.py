@@ -5,15 +5,13 @@ from time import sleep as wait
 import cv2 as cv
 from datetime import datetime
 
-scale=.1
-
 def main(img_url):
     img_content=requests.get(img_url).content
     img_name=str(datetime.now().replace(microsecond=0)).replace(":","-")+'.png'
     with open(f'./{img_name}','wb') as f:
         f.write(img_content)
     ssDir=os.path.join('./',img_name)
-    image=cv.imread(ssDir)
+    image=cv.imread(ssDir,cv.IMREAD_UNCHANGED)
     image=cv.cvtColor(image,cv.COLOR_BGR2BGRA)
     currentSize=image.shape
     newSize=[currentSize[1]>255 and 255 or currentSize[1],currentSize[0]>255 and 255 or currentSize[0]]

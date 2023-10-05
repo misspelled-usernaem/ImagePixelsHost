@@ -25,7 +25,7 @@ def main(img_url):
         crow=[]
         for row in range(currentSize[0]):
             BGR=image[row,colum]
-            RGB={"R":BGR[2],"G":BGR[1],"B":BGR[0]}
+            RGB={"R":BGR[2],"G":BGR[1],"B":BGR[0],"A":BGR[3]}
             crow.append(RGB)
         fullList.append(str(crow))
     jsonList='[\n\t'+str.join(',\n\t',fullList)+'\n]'

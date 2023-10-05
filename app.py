@@ -14,6 +14,7 @@ def main(img_url):
         f.write(img_content)
     ssDir=os.path.join('./',img_name)
     image=cv.imread(ssDir)
+    image=cv.cvtColor(image,cv.COLOR_BGR2BGRA)
     currentSize=image.shape
     newSize=[currentSize[1]>255 and 255 or currentSize[1],currentSize[0]>255 and 255 or currentSize[0]]
     print(newSize)
@@ -24,8 +25,8 @@ def main(img_url):
     for colum in range(currentSize[1]):
         crow=[]
         for row in range(currentSize[0]):
-            BGR=image[row,colum]
-            RGB={"R":BGR[2],"G":BGR[1],"B":BGR[0],"A":BGR[3]}
+            BGRA=image[row,colum]
+            RGB={"R":BGRA[2],"G":BGRA[1],"B":BGRA[0],"A":BGRA[3]}
             crow.append(RGB)
         fullList.append(str(crow))
     jsonList='[\n\t'+str.join(',\n\t',fullList)+'\n]'

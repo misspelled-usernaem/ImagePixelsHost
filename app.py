@@ -55,3 +55,24 @@ def idata():
             return 'invalid link'
     else:
         return 'missing key in payload'
+
+
+@app.route('/bulk',methods=['POST'])
+def bulk():
+    payload:dict=request.get_json()
+    if payload.get('urls'):
+            returnValue=[]
+            for urlDesc in payload['urls']:
+                try:
+                    img_url=urlDesc.get('url')
+                    size=False
+                    if urlDesc.get('x') and urlDesc.get('y'):
+                        size=[int(urlDesc['x']),int(urlDesc['y'])]
+                    print(img_url)
+                    data=main(img_url,size=size)
+                    returnValue.append(data)
+                except:
+                    pass
+            return returnValue
+    else:
+        return 'missing key in payload'

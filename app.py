@@ -78,7 +78,7 @@ def bulk():
                     data=main(img_url,size=size)
                     returnValue.append(data)
                 except:
-                    pass
+                    print('[ERROR] Could not deconsturct image')
             return returnValue
     else:
         return 'missing key in payload'

@@ -67,7 +67,7 @@ def idata():
 def bulk():
     payload:dict=request.get_json()
     if payload.get('urls'):
-            returnValue={}
+            returnValue=[]
             for urlDesc in payload['urls']:
                 try:
                     img_url=urlDesc.get('url')
@@ -76,7 +76,7 @@ def bulk():
                         size=[int(urlDesc['x']),int(urlDesc['y'])]
                     print(img_url)
                     data=main(img_url,size=size)
-                    returnValue.setdefault(img_url,data)
+                    returnValue.append(data)
                 except:
                     pass
             return returnValue

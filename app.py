@@ -36,8 +36,6 @@ def main(img_url,size):
         jsonList=jsonList.replace("'",'"')
         source='[\n\t'+str(fullList).replace('"','').replace("'",'"').replace('[{','\n\t\t[{').replace('}, {','},{').replace(', "',',"').replace('": ','":').replace(']]',']\n\t]')+'\n]'
         os.remove(ssDir)
-        fullList.clear()
-        crow.clear()
         return source
 
 

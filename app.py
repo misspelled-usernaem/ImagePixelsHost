@@ -17,7 +17,6 @@ def main(img_url,size):
             f.write(img_content)
         ssDir=os.path.join('./',img_name)
         image=cv.imread(ssDir,cv.IMREAD_UNCHANGED)
-        os.remove(ssDir)
         image=cv.cvtColor(image,cv.COLOR_BGR2BGRA)
         currentSize=image.shape
         newSize=[currentSize[1]>255 and 255 or currentSize[1],currentSize[0]>255 and 255 or currentSize[0]]
@@ -36,6 +35,7 @@ def main(img_url,size):
         jsonList='[\n\t'+str.join(',\n\t',fullList)+'\n]'
         jsonList=jsonList.replace("'",'"')
         source='[\n\t'+str(fullList).replace('"','').replace("'",'"').replace('[{','\n\t\t[{').replace('}, {','},{').replace(', "',',"').replace('": ','":').replace(']]',']\n\t]')+'\n]'
+        os.remove(ssDir)
         fullList.clear()
         crow.clear()
         return source

@@ -35,8 +35,10 @@ def main(img_url):
     return source
 
 
-app=Flask(__name__)
-
+app=Flask(__name__,)
+@app.route('/')
+def home():
+    return 'Ok it work'
 @app.route('/idata',methods=['POST'])
 def idata():
     payload:dict=request.get_json()
@@ -50,6 +52,3 @@ def idata():
             return 'invalid link'
     else:
         return 'missing key in payload'
-
-
-app.run()

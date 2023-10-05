@@ -1,6 +1,4 @@
 from flask import *
-import image
-
 import requests
 import os
 from time import sleep as wait
@@ -55,7 +53,7 @@ def idata():
         try:
             img_url=payload['url']
             print(img_url)
-            data=image.main(img_url)
+            data=main(img_url)
             return data
         except:
             return 'invalid link'

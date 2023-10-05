@@ -6,15 +6,6 @@ import cv2 as cv
 from datetime import datetime
 
 scale=.1
-tempDir='C:/Windows/Temp/'
-temp=os.path.join(tempDir)
-if not os.path.exists(f'{tempDir}rshare'):
-    os.mkdir(f'{tempDir}rshare')
-    folder=os.path.join(tempDir,'rshare')
-else:
-    folder=os.path.join(tempDir,'rshare')
-
-folderDir=str(folder)+'/'
 
 def main(img_url):
     img_content=requests.get(img_url).content

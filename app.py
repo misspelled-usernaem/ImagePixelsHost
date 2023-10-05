@@ -5,7 +5,7 @@ from time import sleep as wait
 import cv2 as cv
 from datetime import datetime
 
-def main(img_url):
+def main(img_url,size):
     img_content=requests.get(img_url).content
     img_name=str(datetime.now().replace(microsecond=0)).replace(":","-")+'.png'
     with open(f'./{img_name}','wb') as f:
@@ -15,14 +15,15 @@ def main(img_url):
     image=cv.cvtColor(image,cv.COLOR_BGR2BGRA)
     currentSize=image.shape
     newSize=[currentSize[1]>255 and 255 or currentSize[1],currentSize[0]>255 and 255 or currentSize[0]]
-    print(newSize)
+    if size:
+        newSize=size
     image=cv.resize(image,newSize)
     currentSize=image.shape
     cv.imwrite(ssDir,image)
     fullList=[]
-    for colum in range(currentSize[1]):
+    for colum in range(currentSize[0]):
         crow=[]
-        for row in range(currentSize[0]):
+        for row in range(currentSize[1]):
             BGRA=image[row,colum]
             RGB={"R":BGRA[2],"G":BGRA[1],"B":BGRA[0],"A":BGRA[3]}
             crow.append(RGB)
@@ -44,8 +45,11 @@ def idata():
     if payload.get('url'):
         try:
             img_url=payload['url']
+            size=False
+            if payload.get('x') and payload.get('y'):
+                size=[int(payload['x']),int(payload['y'])]
             print(img_url)
-            data=main(img_url)
+            data=main(img_url,size=size)
             return data
         except:
             return 'invalid link'
